@@ -18,12 +18,19 @@ public class ProjectController {
     @Autowired
     ProjectService projectService;
 
-    @GetMapping("/{employeeId}")
-    public Response<List<Project>> getProjectsByEmployeeId(@PathVariable Long employeeId) {
-        if (employeeId == null) {
+    @GetMapping("/{id}")
+    public Response<List<Project>> getProjectsByEmployeeId(@PathVariable String id) {
+        if (id == null) {
             ResponseError error = new ResponseError("id", "employee id required");
             return new Response<>(error, null);
         }
-        return projectService.getProjectsByEmployeeId(employeeId);
+        try {
+            Long employeeId = Long.parseLong(id);
+            return projectService.getProjectsByEmployeeId(employeeId);
+        }
+        catch (NumberFormatException e) {
+            ResponseError error = new ResponseError("id", "id must be an integer");
+            return new Response<>(error, null);
+        }
     }
 }
