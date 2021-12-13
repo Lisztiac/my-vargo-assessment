@@ -5,13 +5,15 @@ import com.example.danlanassessment.repos.interfaces.EmployeeRepo;
 import com.example.danlanassessment.services.interfaces.EmployeeService;
 import com.example.danlanassessment.utils.Response;
 import com.example.danlanassessment.utils.ResponseError;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeServiceImp implements EmployeeService {
-    @Autowired
-    EmployeeRepo employeeRepo;
+
+    final private EmployeeRepo employeeRepo;
 
     @Override
     public Response<Employee> getEmployeeById(Long employeeId) {

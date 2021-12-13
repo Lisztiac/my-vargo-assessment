@@ -5,15 +5,17 @@ import com.example.danlanassessment.repos.interfaces.ProjectRepo;
 import com.example.danlanassessment.services.interfaces.ProjectService;
 import com.example.danlanassessment.utils.Response;
 import com.example.danlanassessment.utils.ResponseError;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ProjectServiceImp implements ProjectService {
-    @Autowired
-    ProjectRepo projectRepo;
+
+    final private ProjectRepo projectRepo;
 
     @Override
     public Response<List<Project>> getProjectsByEmployeeId(Long employeeId) {
@@ -22,12 +24,7 @@ public class ProjectServiceImp implements ProjectService {
             return new Response<>(error, null);
         }
         var response = projectRepo.getProjectsByEmployeeId(employeeId);
-        List<Project> projects = response.getResult();
-
-        if (projects.isEmpty()) {
-            ResponseError error = new ResponseError("id", "no projects found");
-            return new Response<>(error, null);
-        }
+        List<Project> projects = response.getResult() != null ? response.getResult() : new ArrayList<Project>();
         return response;
     }
 }

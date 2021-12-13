@@ -22,12 +22,11 @@ $(window).on("DOMContentLoaded", () => {
             validateQuery();
         }
         const handleError = () => validateQuery();
+        const getUrl = `/employee/projects/${query}`;
 
         $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/employee/projects",
-            data: JSON.stringify({ id: query }),
+            type: "GET",
+            url: getUrl,
             success: handleSuccess,
             error: handleError,
         });
