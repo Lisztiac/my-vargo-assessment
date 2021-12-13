@@ -21,6 +21,13 @@ public class ProjectServiceImp implements ProjectService {
             ResponseError error = new ResponseError("id", "employee id required");
             return new Response<>(error, null);
         }
-        return projectRepo.getProjectsByEmployeeId(employeeId);
+        var response = projectRepo.getProjectsByEmployeeId(employeeId);
+        List<Project> projects = response.getResult();
+
+        if (projects.isEmpty()) {
+            ResponseError error = new ResponseError("id", "no projects found");
+            return new Response<>(error, null);
+        }
+        return response;
     }
 }

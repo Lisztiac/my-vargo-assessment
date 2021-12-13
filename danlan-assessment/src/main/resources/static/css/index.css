@@ -1,0 +1,17 @@
+.grayout {
+    opacity: 0.5;
+}
+
+#greeting {
+    width: 400px;
+}
+
+#errorDisplay {
+    width: 400px;
+    font-size: 32px;
+}
+
+#searchError {
+    width: 200px;
+    color: #dc3545;
+}

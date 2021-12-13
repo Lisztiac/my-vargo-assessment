@@ -1,7 +1,7 @@
 package com.example.danlanassessment.repos;
 
-import com.example.danlanassessment.models.Project;
-import com.example.danlanassessment.repos.interfaces.ProjectRepo;
+import com.example.danlanassessment.models.Employee;
+import com.example.danlanassessment.repos.interfaces.EmployeeRepo;
 import com.example.danlanassessment.utils.Response;
 import com.example.danlanassessment.utils.ResponseError;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,50 +11,45 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Repository
-public class ProjectRepoImp implements ProjectRepo {
+public class EmployeeRepoImp implements EmployeeRepo {
     @Autowired
     JdbcTemplate jdbc;
 
     @Override
-    public Response<List<Project>> getProjectsByEmployeeId(Long employeeId) {
+    public Response<Employee> getEmployeeById(Long employeeId) {
         SqlRowSet rowSet;
         try {
-            String sql = "SELECT * FROM danlandb.project p " +
-                         "JOIN danlandb.employee_project ep " +
-                         "ON ep.project_id = p.id " +
-                         "WHERE ep.employee_id = ? " +
-                         "ORDER BY start_date";
+            String sql = "SELECT * FROM danlandb.employee e " +
+                         "WHERE e.id = ?";
             rowSet = jdbc.queryForRowSet(sql, employeeId);
         }
         catch (DataAccessException e) {
             ResponseError error = new ResponseError("data access", "an unexpected error has occurred");
             return new Response<>(error, null);
         }
-
-        List<Project> projects = new ArrayList<>();
-        while (rowSet.next()) {
+        if (rowSet.next()) {
             try {
-                Project project = mapProject(rowSet);
-                projects.add(project);
+                Employee employee = mapEmployee(rowSet);
+                return new Response<>(null, employee);
             }
             catch (InvalidResultSetAccessException e) {
                 ResponseError error = new ResponseError("data access", "an unexpected error has occurred");
                 return new Response<>(error, null);
             }
         }
-        return new Response<>(null, projects);
+        ResponseError error = new ResponseError("id", "employee not found");
+        return new Response<>(error, null);
     }
 
-    private Project mapProject(SqlRowSet rowSet) {
-        return new Project(
+    private Employee mapEmployee(SqlRowSet rowSet) {
+        return new Employee(
                 rowSet.getLong("id"),
-                rowSet.getString("code_name"),
-                rowSet.getDate("start_date"),
-                rowSet.getDate("end_date")
+                rowSet.getString("first_name"),
+                rowSet.getString("last_name"),
+                rowSet.getString("title"),
+                rowSet.getString("company"),
+                null
         );
     }
 }
