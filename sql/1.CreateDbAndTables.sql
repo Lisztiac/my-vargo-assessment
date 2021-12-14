@@ -38,6 +38,6 @@ ALTER TABLE employee_project
 
 	ADD CONSTRAINT FK_project_id
 	FOREIGN KEY (project_id)
-	REFERENCES sessions(id);
+	REFERENCES project(id);
 
 
