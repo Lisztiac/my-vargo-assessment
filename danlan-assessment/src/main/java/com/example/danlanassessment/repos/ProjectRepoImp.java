@@ -23,8 +23,8 @@ public class ProjectRepoImp implements ProjectRepo {
     public Response<List<Project>> getProjectsByEmployeeId(Long employeeId) {
         SqlRowSet rowSet;
         try {
-            String sql = "SELECT * FROM danlandb.project p " +
-                         "JOIN danlandb.employee_project ep " +
+            String sql = "SELECT * FROM project p " +
+                         "JOIN employee_project ep " +
                          "ON ep.project_id = p.id " +
                          "WHERE ep.employee_id = ? " +
                          "ORDER BY start_date";

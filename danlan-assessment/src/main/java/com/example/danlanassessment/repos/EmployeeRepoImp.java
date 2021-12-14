@@ -20,7 +20,7 @@ public class EmployeeRepoImp implements EmployeeRepo {
     public Response<Employee> getEmployeeById(Long employeeId) {
         SqlRowSet rowSet;
         try {
-            String sql = "SELECT * FROM danlandb.employee e " +
+            String sql = "SELECT * FROM employee e " +
                          "WHERE e.id = ?";
             rowSet = jdbc.queryForRowSet(sql, employeeId);
         }
