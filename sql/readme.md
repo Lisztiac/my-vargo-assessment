@@ -5,9 +5,12 @@ SQL Instructions
 
 2) Create new local MySql instance with settings below:
 
-host = localhost
+Host = localhost
+
 MySql port = 4000
+
 MySql username = root
+
 MySql password = mysql1
 
 3) Run "1.CreateDbAndTables.sql", then run "2.PopulateTables.sql"
