@@ -29,7 +29,7 @@ public class HomeController {
         var employeeResponse = employeeService.getEmployeeById(id);
         var projectsResponse = projectService.getProjectsByEmployeeId(id);
 
-        ModelAndView mv = new ModelAndView("index::employeeData");
+        ModelAndView mv = new ModelAndView("fragments/profileTable::employeeData");
         boolean isError = employeeResponse.getError() != null || projectsResponse.getError() != null;
 
         if (isError) {

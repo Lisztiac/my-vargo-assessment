@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="tableArea" th:fragment="employeeData">
+        <div id="employeeProfile" class="table-responsive row">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td class="col-6">First Name</td>
+                    <td class="col-6" th:text="${employee?.firstName}"></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td th:text="${employee?.lastName}"></td>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td th:text="${employee?.title}"></td>
+                </tr>
+                <tr>
+                    <td>Company</td>
+                    <td th:text="${employee?.company}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="employeeProjects" class="table-responsive row">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th class="col-6">Project Code Name</th>
+                    <th class="col-3">Start Date</th>
+                    <th class="col-3">End Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="project : ${employee?.projects}">
+                    <td th:text="${project?.codeName}"></td>
+                    <td th:text="${project?.startDate}"></td>
+                    <td th:text="${project?.endDate ?: 'Ongoing'}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="errorDisplay" class="mx-auto" th:text="${responseError}"></div>
+        </div>
+    </div>
+</body>
+</html>
