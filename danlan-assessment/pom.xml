@@ -15,6 +15,7 @@
 	<description>Dan&apos;s Vargo Assessment</description>
 	<properties>
 		<java.version>11</java.version>
+		<start-class>com.example.danlanassessment.DanlanAssessmentApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,8 +47,9 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
+	<packaging>jar</packaging>
 	<build>
+		<finalName>DansVargoAssessment</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
